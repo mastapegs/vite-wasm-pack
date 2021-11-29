@@ -1,3 +1,4 @@
+import './my-element';
 //@ts-ignore
 import init from "my-crate";
 // Don't worry if vscode told you can't find my-crate
