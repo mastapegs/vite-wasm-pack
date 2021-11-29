@@ -1,25 +1,23 @@
-extern crate cfg_if;
-extern crate wasm_bindgen;
-
-mod utils;
-
-use cfg_if::cfg_if;
+use dominator::{html, Dom};
 use wasm_bindgen::prelude::*;
 
-cfg_if! {
-    if #[cfg(feature = "wee_alloc")] {
-        extern crate wee_alloc;
-        #[global_allocator]
-        static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+struct App {}
+
+impl App {
+    fn render() -> Dom {
+        // Create the DOM nodes
+        html!("div", {
+          .text("test")
+        })
     }
 }
 
-#[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
+#[wasm_bindgen(start)]
+pub fn main_js() -> Result<(), JsValue> {
+    #[cfg(debug_assertions)]
+    console_error_panic_hook::set_once();
 
-#[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
+    dominator::append_dom(&dominator::body(), App::render());
+
+    Ok(())
 }
