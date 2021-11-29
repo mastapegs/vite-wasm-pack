@@ -3,7 +3,10 @@ import wasmPack from 'vite-plugin-wasm-pack';
 
 export default defineConfig({
   build: {
-    minify: false
+    minify: false,
+    rollupOptions: {
+      external: /^lit/
+    }
   },
   plugins: [wasmPack(['./my-crate'])]
 });

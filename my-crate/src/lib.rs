@@ -6,9 +6,7 @@ struct App {}
 impl App {
     fn render() -> Dom {
         // Create the DOM nodes
-        html!("div", {
-          .text("test")
-        })
+        html!("my-element", {})
     }
 }
 
